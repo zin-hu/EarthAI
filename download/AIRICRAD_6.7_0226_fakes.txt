@@ -1,9 +1,0 @@
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/001/AIRS.2024.01.01.088.L1C.AIRS_Rad.v6.7.5.0.G24001114231.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/001/AIRS.2024.01.01.089.L1C.AIRS_Rad.v6.7.5.0.G24001114237.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/001/AIRS.2024.01.01.198.L1C.AIRS_Rad.v6.7.5.0.G24002102051.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/001/AIRS.2024.01.01.199.L1C.AIRS_Rad.v6.7.5.0.G24002102036.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/002/AIRS.2024.01.02.079.L1C.AIRS_Rad.v6.7.5.0.G24002114432.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/002/AIRS.2024.01.02.095.L1C.AIRS_Rad.v6.7.5.0.G24002114307.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/002/AIRS.2024.01.02.096.L1C.AIRS_Rad.v6.7.5.0.G24002114312.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/002/AIRS.2024.01.02.205.L1C.AIRS_Rad.v6.7.5.0.G24003102422.hdf
-https://data.gesdisc.earthdata.nasa.gov/data/Aqua_AIRS_Level1/AIRICRAD.6.7/2024/002/AIRS.2024.01.02.206.L1C.AIRS_Rad.v6.7.5.0.G24003102045.hdf
