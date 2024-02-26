@@ -1,1 +1,0 @@
-LOAD DATA INPATH '/home/hzin/earthAI/data/0131.parquet' OVERWRITE INTO TABLE radiance;

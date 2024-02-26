@@ -1,9 +1,19 @@
 data_files:
   AIRICRAD_6.7_0226_texas.txt:
+    nlinks: 254
+    size: 29GB
     location:
       center: [31.465, -99.492]
       radius: 587.8316km
     date:
       from: 2024-01-01
       to: 2024-02-25
-        
+  AIRICRAD_6.7_0226_lakes.txt:
+    nlinks: 252
+    size: 29GB
+    location:
+      center: [41.748, -84.814]
+      radius: 409.2280052665474km
+    date:
+      from: 2024-01-01
+      to: 2024-02-25

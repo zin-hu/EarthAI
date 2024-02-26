@@ -1,5 +1,12 @@
 """Convert HDF5 data to Parquet format."""
 
+# ============================================================================
+# Usage:
+#   python3 convert_to_parquet.py /path/to/file.h5
+# ============================================================================
+
+import os
+import argparse
 import h5py
 import pandas as pd
 from datetime import datetime, timedelta
@@ -23,7 +30,15 @@ def read_h5_data(file_path):
             lon = data['Geolocation Fields']['Longitude'][:]
             time = data['Geolocation Fields']['Time'][:]
 
-            return [rad, lat, lon, time]
+            # Retrieve swath attributes
+            swath_attributes = {}
+            for t in data['Swath Attributes']:
+                if (isinstance(data['Swath Attributes'][t], h5py.Dataset) 
+                        and not t.startswith("_FV")):
+                    swath_attributes[t] = \
+                        data['Swath Attributes'][t]['AttrValues'][0]
+
+            return [rad, lat, lon, time], swath_attributes
         
     except FileNotFoundError:
         print("File not found!")
@@ -53,25 +68,41 @@ def save_dataframe_to_parquet(df, output_file):
     """Save DataFrame to Parquet file."""
     try:
         df.to_parquet(output_file, index=False)
-        print("Data successfully saved to:", output_file)
     except Exception as e:
         print("Error occurred while saving data:", e)
 
 
-def main():
-    # Provide the path to your HDF5 file
-    file_path = "../data/0131.h5"
-    output_file = "../data/0131.parquet"
+def main(filename):
+    """Main function."""
+    # Extracting directory path
+    directory = os.path.dirname(filename)
+    # Extracting file name without extension
+    file_name_without_extension = os.path.splitext(
+        os.path.basename(filename))[0]
+
+    # Constructing output file paths
+    output_file = f"{directory}/{file_name_without_extension}.parquet"
+    output_file_metadata = \
+        f"{directory}/{file_name_without_extension}_attr.parquet"
 
     # Read the HDF5 file
-    print("Reading HDF5 file...")
-    data = read_h5_data(file_path)
+    data, metadata = read_h5_data(filename)
 
     if data:
-        df = process_data_to_dataframe(data)
+        df_data = process_data_to_dataframe(data)
         
-        if df is not None:
-            save_dataframe_to_parquet(df, output_file)
+        if df_data is not None:
+            save_dataframe_to_parquet(df_data, output_file)
+
+    if metadata:
+        df_metadata = pd.DataFrame([metadata])
+        save_dataframe_to_parquet(df_metadata, output_file_metadata)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Process H5 data and save it to Parquet format.")
+    parser.add_argument(
+        "filename", 
+        help="Name of the H5 file.")
+    args = parser.parse_args()
+    main(args.filename)

@@ -7,8 +7,6 @@ CREATE TABLE IF NOT EXISTS radiances (
     rad ARRAY<DOUBLE> COMMENT 'radiances'
 )
 COMMENT 'AIRS L1C Infrared radiances'
-PARTITIONED BY (date STRING, granule STRING)
+PARTITIONED BY (d STRING, granule INT)
 STORED AS PARQUET 
 ;
-LOAD DATA INPATH '/home/hzin/earthAI/data/0131.parquet'
-    OVERWRITE INTO TABLE radiances;

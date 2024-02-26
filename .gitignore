@@ -91,3 +91,5 @@ Icon
 # Customized folders ---------------------------------------------------
 data/
 doc/
+logs/
+*.log
