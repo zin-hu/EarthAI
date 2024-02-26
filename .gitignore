@@ -84,24 +84,10 @@ Brewfile.lock.json
 Icon
 .dropbox*
 
-# Data -----------------------------------------------------------------
-data/
-
-# Other ----------------------------------------------------------------
-*.zip
-**/tests/bin/test_*
-*port*
-
-# Junk
-z.junk
-
-# Local helpers/tests
-# [0-9]*.sh
-[0-9]*.py
-
-# Excel stats
+# Excel stats ----------------------------------------------------------
 *.xlsx
 *.numbers
 
-# Logs
-*log*
+# Customized folders ---------------------------------------------------
+data/
+doc/

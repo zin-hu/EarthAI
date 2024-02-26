@@ -1,0 +1,9 @@
+data_files:
+  AIRICRAD_6.7_0226_texas.txt:
+    location:
+      center: [31.465, -99.492]
+      radius: 587.8316km
+    date:
+      from: 2024-01-01
+      to: 2024-02-25
+        
