@@ -12,7 +12,7 @@
 
 # Function to count total lines in a file
 count_lines() {
-    echo $(( $(wc -l < "$1") + 1 ))
+    echo $(wc -l < "$1")
 }
 
 # Check if url.txt and download_directory arguments are provided
