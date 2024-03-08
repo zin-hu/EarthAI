@@ -5,13 +5,14 @@
 
 # Install Java
 sudo apt-get update
-sudo wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg && \
-echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | sudo tee /etc/apt/sources.list.d/corretto.list
 
-sudo apt-get install -y java-1.8.0-amazon-corretto-jdk
+sudo wget https://corretto.aws/downloads/latest/amazon-corretto-8-x64-linux-jdk.tar.gz
+
+sudo tar -xvzf amazon-corretto-8-x64-linux-jdk.tar.gz
+sudo cp -r amazon-corretto-8.402.08.1-linux-x64 /usr/lib/jvm
 
 # Set JAVA_HOME
-echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-amazon-corretto' | sudo tee -a /etc/profile
+echo 'export JAVA_HOME=/usr/lib/jvm/amazon-corretto-8.402.08.1-linux-x64' | sudo tee -a /etc/profile
 echo 'export PATH=$JAVA_HOME/bin:${PATH}' | sudo tee -a /etc/profile
 source /etc/profile
 
