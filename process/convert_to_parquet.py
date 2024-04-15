@@ -52,10 +52,10 @@ def process_data_to_dataframe(data):
     try:
         rad, lat, lon, time = data
         df = pd.DataFrame({
-            'stime': [str(convert_to_timestamp(sec)) for 
-                      sec in time.astype('float64').flatten()],
-            'lat': lat.astype('float64').flatten(),
-            'lon': lon.astype('float64').flatten(),
+            #'stime': [str(convert_to_timestamp(sec)) for 
+            #          sec in time.astype('float64').flatten()],
+            #'lat': lat.astype('float64').flatten(),
+            #'lon': lon.astype('float64').flatten(),
             'rad': rad.astype('float64').reshape(-1, 2645).tolist()
         })  
         return df

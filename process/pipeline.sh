@@ -12,6 +12,37 @@ count_files() {
     find "$1" -maxdepth 1 -name "*.hdf" | wc -l
 }
 
+# Function to process a single file
+process_file() {
+    hdf_file="$1"
+    h5_folder_path="$2"
+    progress="$3"
+
+    # Extract date and granule number from the file name
+    file_name=$(basename "$hdf_file")
+    date=$(echo "$file_name" | awk -F'[_.]' '{print $2"-"$3"-"$4}')
+    granule_number=$(echo "$file_name" | awk -F'[_.]' '{print $5}')
+
+    echo "... $progress - Date: $date, Granule Number: $granule_number"
+
+    # Convert HDF to H5
+    h5_file="$h5_folder_path/airs_"$date"_"$granule_number".h5"
+    echo "... $progress - Converting to H5: $h5_file"
+    ./h4toh5 "$hdf_file" "$h5_file"
+
+    # Process the H5 file
+    echo "... $progress - Converting to Parquet: $h5_file"
+    python3 convert_to_parquet.py "$h5_file"
+
+    # Load the parquet file into the database
+    echo "... $progress - Loading parquet file into database"
+    hive \
+    --hiveconf date=$date \
+    --hiveconf granule=$granule_number \
+    --hiveconf path=$h5_folder_path \
+    -f load_data.sql 2>/dev/null
+}
+
 # Check if correct number of arguments are passed
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 <HDF_FOLDER_PATH> <H5_FOLDER_PATH>"
@@ -46,32 +77,10 @@ for hdf_file in "$hdf_folder_path"/*.hdf; do
         # Increment counter
         ((count++))
 
-        # Print processing message
-        echo "Processing file $count/$total_files: $hdf_file"
-
-        # Extract date and granule number from the file name
-        file_name=$(basename "$hdf_file")
-        date=$(echo "$file_name" | awk -F'[_.]' '{print $2"-"$3"-"$4}')
-        granule_number=$(echo "$file_name" | awk -F'[_.]' '{print $5}')
-
-        echo "... Date: $date, Granule Number: $granule_number"
-
-        # Convert HDF to H5
-        h5_file="$h5_folder_path/airs_"$date"_"$granule_number".h5"
-        echo "... Converting to H5: $h5_file"
-        ./h4toh5 "$hdf_file" "$h5_file"
-
-        # Process the H5 file
-        echo "... Converting to Parquet: $h5_file"
-        python3 convert_to_parquet.py "$h5_file"
-
-        # Load the parquet file into the database
-        echo "... Loading parquet file into database"
-        hive \
-        --hiveconf date=$date \
-        --hiveconf granule=$granule_number \
-        --hiveconf path=$h5_folder_path \
-        -f load_data.sql 2>/dev/null
+        # Call function to process the file in the background
+        progress="${count}/${total_files}"
+        echo "Processing file $progress%: $hdf_file at $(date)"
+        process_file "$hdf_file" "$h5_folder_path" "$progress" &
 
     else
         echo "No HDF files found in $hdf_folder_path"
