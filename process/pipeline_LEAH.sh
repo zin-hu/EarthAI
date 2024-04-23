@@ -17,6 +17,7 @@ process_file() {
     h5_file="$1"
     h5_folder_path="$2"
     progress="$3"
+    csv_folder_path="../data_csv"
 
     # Extract date and granule number from the file name
     file_name=$(basename "$h5_file")
@@ -30,7 +31,7 @@ process_file() {
     hive \
     --hiveconf date=$date \
     --hiveconf granule=$granule_number \
-    --hiveconf path=$h5_folder_path \
+    --hiveconf path=$csv_folder_path \
     -f load_data_LEAH.sql 2>/dev/null
 }
 
