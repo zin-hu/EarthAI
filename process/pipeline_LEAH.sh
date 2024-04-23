@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# ============================================================================
+# This script is used to convert H5 files to csv files of spectral data. The 
+# csv files are then loaded into the database.
+# Usage:
+#   ./pipeline_LEAH.sh <H5_FOLDER_PATH>
+# ============================================================================
+
 # Function to count total number of files in h5_folder_path
 count_files() {
     find "$1" -maxdepth 1 -name "*.h5" | wc -l
