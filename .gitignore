@@ -92,4 +92,6 @@ Icon
 data/
 doc/
 logs/
+input/
+output/
 *.log
