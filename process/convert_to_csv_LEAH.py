@@ -72,8 +72,9 @@ def save_data_to_csv(csv_data, output_file):
 
 def main(filename):
     """Main function."""
-    # Extracting directory path
-    directory = os.path.dirname(filename)
+    # Check if directory exists
+    directory = '../data_csv'
+    os.makedirs(directory, exist_ok=True)
     # Extracting file name without extension
     file_name_without_extension = os.path.splitext(
         os.path.basename(filename))[0]
